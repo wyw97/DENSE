@@ -76,7 +76,8 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: space-between; /* 使音频控件占满高度 */
+            height: 100%; /* 高度设置为100% */
         }
 
         .style2 img {
@@ -132,13 +133,15 @@
 </head>
 
 <body>
+    <!-- Overview部分 -->
     <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
         <div class="style1">
             <h1 style="text-align:center; font-size: 40px;">DENSE: Dynamic Embedding Causal Target Speech Extraction (Submitted to Icassp2025)</h1>
             <p class="lead fw-bold">
                 <a href="https://scholar.google.com/citations?user=cWhk17oAAAAJ" class="btn border-white bg-white fw-bold">Scholar</a> |
                 <a href="https://github.com/wyw97" class="btn border-white bg-white fw-bold">Github</a> |
-                <a href="https://wyw97.github.io/" class="btn border-white bg-white fw-bold">Homepage</a>
+                <a href="https://wyw97.github.io/" class="btn border-white bg-white fw-bold">Homepage</a> | 
+                 <a href="https://github.com/wyw97/DENSE/" class="btn border-white bg-white fw-bold">Code</a>
             </p>
             <p class="fst-italic mb-0">
                 Yiwen Wang<sup>1*</sup>, Zeyu Yuan<sup>2</sup>, Xihong Wu<sup>1</sup>
@@ -164,10 +167,14 @@
         <img class="modal-content" id="img01">
     </div>
 
+    <p>
+        Click the image for zooming in!
+    </p>
+    <!-- Audio Demos部分，重复多次 -->
     <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
         <div class="style2">
             <a name="audio-demos"><h1>Libri2Mix Audio Demos</h1></a>
-            <div class="container">
+            <div class="container" style="display: flex; align-items: stretch;"> <!-- 修改对齐样式 -->
                 <div class="image">
                     <img src="wav_output/s1_237-134500-0000_7021-79740-0002/wav_cmp.png" alt="Image" onclick="showModal(this)">
                 </div>
@@ -212,6 +219,9 @@
             </div>
         </div>
     </div>
+
+    <!-- 添加更多内容块 -->
+    <!-- 你可以通过复制上面的<div class="container ...>块来重复多次 -->
 
     <script>
         // JavaScript to handle image click for modal
