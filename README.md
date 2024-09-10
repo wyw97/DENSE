@@ -23,3 +23,5 @@ Some changes:
 1. see egs/libri2mix_sep2vec
 
 2. For eval.py to use real chunk-wise causal target speech extraction, DDP is used and the parameter (1531) is set fixed as the receptive length of TCN for simply.
+
+3. For system.py, please carefully check SystemPredictedTeacherForcing and SystemPredictedPairs. Some parameters should be checked before running. Sorry for the inconvenience. Maybe update sooner or later!
