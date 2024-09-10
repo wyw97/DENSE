@@ -8,57 +8,30 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-      audio {
-        /* width: 250px; */
-        width: 20vw;
-        min-width: 100px;
-        max-width: 250px;
-      }
-      img {
-        width: 100%;
-        /* min-height: 300px; */
-        min-width: 300px;
-        max-width: 800px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      td {
-        text-align: center;
-        vertical-align: middle;
-      }
-      .container {
-        overflow-x: auto;
-      }
-      .vertdivider{
-        border-right: 2px solid;
-      }
-      /* td img {
-        width: 100%;
-      }
-      table {
-        max-width: 80%;
-      }
-      h1 {
-        font-size: 35px;
-      }
-      h2 {
-        font-size: 25px;
-        font-weight: normal;
-      }
-      p {
-        font-size: 16px;
-      }
-      hr {
-        text-align: center;
-        width: 80%;
-        margin: 30px;
-      } */
-      /* Solid border */
-      hr.solid {
-        border-top: 2px solid #bbb;
-      }  
-  </style>
+        .container {
+            display: flex; /* 使用Flexbox布局 */
+            align-items: flex-start; /* 图片和音频顶端对齐 */
+            margin-bottom: 20px;
+        }
+        .image {
+            flex: 0 0 50%; /* 固定图片宽度为容器的一半 */
+            padding-right: 20px;
+        }
+        .audio {
+            flex: 1; /* 音频部分占据剩余空间 */
+            display: flex;
+            flex-direction: column; /* 垂直排列音频控件 */
+            justify-content: flex-start; /* 音频控件在顶部对齐 */
+        }
+        img {
+            max-width: 100%; /* 图片最大宽度为其容器的宽度 */
+            height: auto; /* 高度自动调整，保持宽高比 */
+        }
+        audio {
+            margin-bottom: 10px;
+        }
+    </style>
+
   </head>
 
 <body>
@@ -99,7 +72,7 @@
     <!-- Repeat this block for each folder -->
     <div class="container">
         <div class="image">
-            <img src="wav_output/s1_237-134500-0000_7021-79740-0002/wav_cmp.png" alt="Image" width="400">
+            <img src="wav_output/s1_237-134500-0000_7021-79740-0002/wav_cmp.png" alt="Image">
         </div>
         <div class="audio">
             <audio controls>
@@ -124,6 +97,8 @@
             </audio>
         </div>
     </div>
+    <!-- End of repeat block -->
+    
     </div>
          
     </body>
