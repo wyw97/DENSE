@@ -47,43 +47,10 @@ class SystemPredictedTeacherForcing(System):
         est_targets = self(inputs, enrolls, mask_predict_input)
         loss = self.loss_func(est_targets, targets)
         return loss
-    
-
-class SystemPredictedTeacherForcingTripleTime(System):
-    def common_step(self, batch, batch_nb, train=True):
-        inputs, targets, enrolls, predicted = batch
-        # print("shape: ", inputs.shape, targets.shape, enrolls.shape, predicted.shape)
-        # shape: torch.Size([6, 24000]) torch.Size([6, 1, 24000]) torch.Size([6, 24000]) torch.Size([6, 24000])
-        self.eval()
-        with torch.no_grad():
-            est_targets = self(inputs, enrolls, predicted)
-        est_targets = est_targets.squeeze(1)
-        shift_size = 128
-        shift_est_targets = torch.roll(est_targets, shifts=shift_size, dims=-1)
-        shift_est_targets[:, :shift_size] = (1e-6)*torch.rand_like(shift_est_targets[:, :shift_size])
-        with torch.no_grad():
-            est_targets_2 = self(inputs, enrolls, shift_est_targets)
-        est_targets_2 = est_targets_2.squeeze(1)
-        shift_est_targets_2 = torch.roll(est_targets_2, shifts=shift_size, dims=-1)
-        shift_est_targets_2[:, :shift_size] = (1e-6)*torch.rand_like(shift_est_targets_2[:, :shift_size])
-        # random number from 0 to 1
-        # random_zero_one = torch.rand(1)
-        # if random_zero_one < 0.5:
-        #     # set zero for shift_est_targets_2
-        #     shift_est_targets_2 = torch.zeros_like(shift_est_targets_2)
-        if self.training:
-            self.train()
-        est_targets = self(inputs, enrolls, shift_est_targets_2)
-        loss = self.loss_func(est_targets, targets)
-        return loss
-
 
 class SystemPredictedTeacherForcingAutoRegression(System):
     def common_step(self, batch, batch_nb, train=True):
         inputs, targets, enrolls, predicted = batch
-        # print("shape: ", inputs.shape, targets.shape, enrolls.shape, predicted.shape)
-        # shape: torch.Size([6, 24000]) torch.Size([6, 1, 24000]) torch.Size([6, 24000]) torch.Size([6, 24000])
-        # self.eval()
         iterative_time = self.current_epoch // 50
         shift_est_targets = predicted.clone()
         for _ in range(iterative_time):
@@ -93,48 +60,7 @@ class SystemPredictedTeacherForcingAutoRegression(System):
             shift_size = 128
             shift_est_targets = torch.roll(est_targets, shifts=shift_size, dims=-1)
             shift_est_targets[:, :shift_size] = 0.0*torch.rand_like(shift_est_targets[:, :shift_size])
-        # get random number to set shift_est_targets as zero
-        # rand_num = torch.rand(1)
-        # if rand_num < 0.7:
-        #     shift_est_targets = torch.zeros_like(shift_est_targets)
-        # if self.training:
-        #     self.train()
         est_targets = self(inputs, enrolls, shift_est_targets)
-        loss = self.loss_func(est_targets, targets)
-        return loss
-
-
-class SystemPredictedTeacherForcingAutoRegression2chn(System):
-    def common_step(self, batch, batch_nb, train=True):
-        inputs, targets, enrolls, predicted = batch
-        # print("shape: ", inputs.shape, targets.shape, enrolls.shape, predicted.shape)
-        # shape: torch.Size([6, 24000]) torch.Size([6, 1, 24000]) torch.Size([6, 24000]) torch.Size([6, 24000])
-        # self.eval()
-        iterative_time = self.current_epoch // 50
-        shift_est_targets = predicted.clone()
-        # concatenate two channels
-        # In the provided code, `shift_size` is a parameter used to determine the amount of shifting
-        # applied to a tensor along a specific dimension. It is used in the context of rolling the
-        # tensor along a particular axis.
-        shift_size = 32
-        shift_inputs = torch.roll(inputs.unsqueeze(1), shifts=shift_size, dims=-1)
-        mix_inputs_predicts = torch.cat((shift_inputs, predicted.unsqueeze(1)), dim=1) # shape: torch.Size([6, 2, 24000])
-        for _ in range(iterative_time):
-            with torch.no_grad():
-                est_targets = self(inputs, enrolls, mix_inputs_predicts)
-            est_targets = est_targets.squeeze(1)
-            
-            shift_est_targets = torch.roll(est_targets, shifts=shift_size, dims=-1)
-            shift_est_targets[:, :shift_size] = 0.0*torch.rand_like(shift_est_targets[:, :shift_size])
-            mix_inputs_predicts = torch.cat((shift_inputs, shift_est_targets.unsqueeze(1)), dim=1)
-        # get random number to set shift_est_targets as zero
-        # rand_num = torch.rand(1)
-        # if rand_num < 0.7:
-            # mix_inputs_predicts = torch.zeros_like(mix_inputs_predicts)
-            # mix_inputs_predicts[:, 1, :] = 0.0*torch.rand_like(mix_inputs_predicts[:, 1, :])
-        # if self.training:
-        #     self.train()
-        est_targets = self(inputs, enrolls, mix_inputs_predicts)
         loss = self.loss_func(est_targets, targets)
         return loss
 
