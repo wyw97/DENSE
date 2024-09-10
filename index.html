@@ -62,41 +62,71 @@
         }
 
         .style2 .container {
-            display: flex; /* 使用Flexbox布局 */
-            align-items: flex-start; /* 图片和音频顶端对齐 */
+            display: flex;
+            align-items: flex-start;
             margin-bottom: 20px;
         }
 
         .style2 .image {
-            flex: 0 0 60%; /* 固定图片宽度为容器的60% */
+            flex: 0 0 60%;
             padding-right: 20px;
         }
 
         .style2 .audio {
-            flex: 1; /* 音频部分占据剩余空间 */
+            flex: 1;
             display: flex;
-            flex-direction: column; /* 垂直排列音频控件 */
-            justify-content: flex-start; /* 音频控件在顶部对齐 */
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .style2 img {
-            max-width: 100%; /* 图片最大宽度为其容器的宽度 */
-            height: auto; /* 高度自动调整，保持宽高比 */
+            max-width: 100%;
+            height: auto;
+            cursor: pointer; /* 鼠标悬停时显示为手形，表示可点击 */
         }
 
         .style2 .audio-item {
-            display: flex; /* 每个音频项使用Flexbox */
-            align-items: center; /* 垂直居中 */
+            display: flex;
+            align-items: center;
             margin-bottom: 10px;
         }
 
         .style2 .audio-item label {
-            margin-right: 10px; /* 音频名称和播放按钮之间的间距 */
-            font-size: 16px; /* 文字大小 */
+            margin-right: 10px;
+            font-size: 16px;
         }
 
         .style2 audio {
             margin-bottom: 10px;
+        }
+
+        /* Modal 样式 */
+        .modal {
+            display: none; /* 默认隐藏 */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            margin: 15% auto;
+            display: block;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -108,7 +138,8 @@
             <p class="lead fw-bold">
                 <a href="https://scholar.google.com/citations?user=cWhk17oAAAAJ" class="btn border-white bg-white fw-bold">Scholar</a> |
                 <a href="https://github.com/wyw97" class="btn border-white bg-white fw-bold">Github</a> |
-                <a href="https://wyw97.github.io/" class="btn border-white bg-white fw-bold">Homepage</a>
+                <a href="https://wyw97.github.io/" class="btn border-white bg-white fw-bold">Homepage</a> |
+                <a href="https://github.com/wyw97/DENSE/tree/main" class="btn border-white bg-white fw-bold">Code</a>
             </p>
             <p class="fst-italic mb-0">
                 Yiwen Wang<sup>1*</sup>, Zeyu Yuan<sup>2</sup>, Xihong Wu<sup>1</sup>
@@ -122,14 +153,16 @@
         <div class="style1">
             <h1>Overview</h1>
             <p>
-                Target speech extraction (TSE) focuses on extracting the speech of a specific target speaker from a mixture of signals. 
-                Existing TSE models typically utilize static embeddings as conditions for extracting the target speaker’s voice. 
-                However, the static embeddings often fail to capture the contextual information of the extracted speech signal, which may limit the model’s performance. 
-                We propose a novel dynamic embedding causal target speech extraction model to address this limitation. 
-                Our approach incorporates an autoregressive mechanism to generate context-dependent embeddings based on the extracted speech, enabling real-time, frame-level extraction. 
+                Target speech extraction (TSE) focuses on extracting the speech of a specific target speaker from a mixture of signals. Existing TSE models typically utilize static embeddings as conditions for extracting the target speaker’s voice. However, the static embeddings often fail to capture the contextual information of the extracted speech signal, which may limit the model’s performance. We propose a novel dynamic embedding causal target speech extraction model to address this limitation. Our approach incorporates an autoregressive mechanism to generate context-dependent embeddings based on the extracted speech, enabling real-time, frame-level extraction. Experimental results demonstrate that the proposed model enhances short-time objective intelligibility (STOI) and signal-to-distortion ratio (SDR), offering a promising solution for target speech extraction in challenging scenarios.
                 <img src="dense_img/ar_pairs_tse_autoregressive.png" style="width: 50%;">
             </p> 
         </div>
+    </div>
+
+    <!-- 模态框 (Modal) -->
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
     </div>
 
     <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
@@ -137,9 +170,24 @@
             <a name="audio-demos"><h1>Libri2Mix Audio Demos</h1></a>
             <div class="container">
                 <div class="image">
-                    <img src="wav_output/s1_237-134500-0000_7021-79740-0002/wav_cmp.png" alt="Image">
+                    <img src="wav_output/s1_237-134500-0000_7021-79740-0002/wav_cmp.png" alt="Image" onclick="showModal(this)">
                 </div>
                 <div class="audio">
+                    <!-- 按照指定顺序排列音频控件 -->
+                    <div class="audio-item">
+                        <label>Mixture:</label>
+                        <audio controls>
+                            <source src="wav_output/s1_237-134500-0000_7021-79740-0002/mixture.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    <div class="audio-item">
+                        <label>Label:</label>
+                        <audio controls>
+                            <source src="wav_output/s1_237-134500-0000_7021-79740-0002/label.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
                     <div class="audio-item">
                         <label>Baseline:</label>
                         <audio controls>
@@ -161,23 +209,25 @@
                             Your browser does not support the audio element.
                         </audio>
                     </div>
-                    <div class="audio-item">
-                        <label>Label:</label>
-                        <audio controls>
-                            <source src="wav_output/s1_237-134500-0000_7021-79740-0002/label.wav" type="audio/wav">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                    <div class="audio-item">
-                        <label>Mixture:</label>
-                        <audio controls>
-                            <source src="wav_output/s1_237-134500-0000_7021-79740-0002/mixture.wav" type="audio/wav">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // JavaScript to handle image click for modal
+        function showModal(img) {
+            var modal = document.getElementById("myModal");
+            var modalImg = document.getElementById("img01");
+            modal.style.display = "block";
+            modalImg.src = img.src;
+        }
+
+        // Close modal when clicking on 'x'
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function() {
+            document.getElementById("myModal").style.display = "none";
+        }
+    </script>
 </body>
 </html>
