@@ -14,4 +14,12 @@ For the demos, please visit [Demo](https://wyw97.github.io/DENSE/)
 
 ## Code 
 
-Preparing! To be released
+Due to the size limited, large files are not uploaded.
+
+Most of the codes remain same as [TD-SpeakerBeam](https://github.com/butspeechfit/speakerbeam). Thanks for open source.
+
+Some changes:
+
+1. see egs/libri2mix_sep2vec
+
+2. For eval.py to use real chunk-wise causal target speech extraction, DDP is used and the parameter (1531) is set fixed as the receptive length of TCN for simply.
