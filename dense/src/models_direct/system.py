@@ -65,7 +65,7 @@ class SystemPredictedTeacherForcingAutoRegression(System):
         return loss
 
 
-class SystemPredictedPairs(System):
+class SystemPredictedParis(System):
     def common_step(self, batch, batch_nb, train=True):
         inputs, targets, enrolls, predicted = batch
         shift_size = 16
