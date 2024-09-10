@@ -1,179 +1,179 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DENSE: Dynamic Embedding Causal Target Speech Extraction (Supplement Material & Demo)</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-    .style1 audio {
-        width: 20vw;
-        min-width: 100px;
-        max-width: 250px;
-    }
+        .style1 audio {
+            width: 20vw;
+            min-width: 100px;
+            max-width: 250px;
+        }
 
-    .style1 img {
-        width: 100%;
-        min-width: 300px;
-        max-width: 800px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
+        .style1 img {
+            width: 100%;
+            min-width: 300px;
+            max-width: 800px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    .style1 td {
-        text-align: center;
-        vertical-align: middle;
-    }
+        .style1 td {
+            text-align: center;
+            vertical-align: middle;
+        }
 
-    .style1 .container {
-        overflow-x: auto;
-    }
+        .style1 .container {
+            overflow-x: auto;
+        }
 
-    .style1 .vertdivider {
-        border-right: 2px solid;
-    }
+        .style1 .vertdivider {
+            border-right: 2px solid;
+        }
 
-    /* td img styles removed */
+        .style1 table {
+            max-width: 80%;
+        }
 
-    .style1 table {
-        max-width: 80%;
-    }
+        .style1 h1 {
+            font-size: 35px;
+        }
 
-    .style1 h1 {
-        font-size: 35px;
-    }
+        .style1 h2 {
+            font-size: 25px;
+            font-weight: normal;
+        }
 
-    .style1 h2 {
-        font-size: 25px;
-        font-weight: normal;
-    }
+        .style1 p {
+            font-size: 16px;
+        }
 
-    .style1 p {
-        font-size: 16px;
-    }
+        .style1 hr {
+            text-align: center;
+            width: 80%;
+            margin: 30px;
+        }
 
-    .style1 hr {
-        text-align: center;
-        width: 80%;
-        margin: 30px;
-    }
+        .style1 hr.solid {
+            border-top: 2px solid #bbb;
+        }
 
-    /* Solid border style */
-    .style1 hr.solid {
-        border-top: 2px solid #bbb;
-    }
-
-      
         .style2 .container {
             display: flex; /* 使用Flexbox布局 */
             align-items: flex-start; /* 图片和音频顶端对齐 */
             margin-bottom: 20px;
         }
+
         .style2 .image {
-            flex: 0 0 50%; /* 固定图片宽度为容器的一半 */
+            flex: 0 0 60%; /* 固定图片宽度为容器的60% */
             padding-right: 20px;
         }
+
         .style2 .audio {
             flex: 1; /* 音频部分占据剩余空间 */
             display: flex;
             flex-direction: column; /* 垂直排列音频控件 */
             justify-content: flex-start; /* 音频控件在顶部对齐 */
         }
+
         .style2 img {
             max-width: 100%; /* 图片最大宽度为其容器的宽度 */
             height: auto; /* 高度自动调整，保持宽高比 */
         }
-         .style2 audio {
+
+        .style2 .audio-item {
+            display: flex; /* 每个音频项使用Flexbox */
+            align-items: center; /* 垂直居中 */
+            margin-bottom: 10px;
+        }
+
+        .style2 .audio-item label {
+            margin-right: 10px; /* 音频名称和播放按钮之间的间距 */
+            font-size: 16px; /* 文字大小 */
+        }
+
+        .style2 audio {
             margin-bottom: 10px;
         }
     </style>
-
-  </head>
+</head>
 
 <body>
     <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
-      <div class="style1">
-  <h1 style="text-align:center; font-size: 40px;">DENSE: Dynamic Embedding Causal Target Speech Extraction (Submitted to Icassp2025)</h1>
-  <!-- <h2 style="text-align:center; font-size: 30px;">Online Supplement</h2> -->
-        <p class="lead fw-bold">
-<!--           |<a
-            href="http://arxiv.org/abs/2305.11151"
-            class="btn border-white bg-white fw-bold"
-            >paper</a
-          >| -->
-                    <a
-            href="https://scholar.google.com/citations?user=cWhk17oAAAAJ"
-            class="btn border-white bg-white fw-bold"
-            >Scholar</a
-          >|
-                    <a
-            href="https://github.com/wyw97"
-            class="btn border-white bg-white fw-bold"
-            >Github</a
-          >|         
-                        <a
-            href="https://wyw97.github.io/"
-            class="btn border-white bg-white fw-bold"
-            >Homepage</a
-          >
-        <p class="fst-italic mb-0">
-          Yiwen Wang<sup>1*</sup>, Zeyu Yuan<sup>2</sup>, Xihong Wu<sup>1</sup>
-        </p>
-        <p>
-          <sup>1</sup>Peking University
-          <sup>2</sup>Xiaomi Corporation
-          <br/>
-        </p>
-
-      </div>
-      <p>
-        <h1>Overview</h1>
-        <p>
-          Target speech extraction (TSE) focuses on extracting the speech of a specific target speaker from a mixture of signals. Existing TSE models typically utilize static embeddings as conditions for extracting the target speaker’s voice. However, the static embeddings often fail to capture the contextual information of the extracted speech signal, which may limit the model’s performance. We propose a novel dynamic embedding causal target speech extraction model to address this limitation. Our approach incorporates an autoregressive mechanism to generate context-dependent embeddings based on the extracted speech, enabling real-time, frame-level extraction. Experimental results demonstrate that the proposed model enhances short-time objective intelligibility (STOI) and signal-to-distortion ratio (SDR), offering a promising solution for target speech extraction in challenging scenarios.
-          <img src="dense_img/ar_pairs_tse_autoregressive.png" style="width: 30%;">
-        </p> 
+        <div class="style1">
+            <h1 style="text-align:center; font-size: 40px;">DENSE: Dynamic Embedding Causal Target Speech Extraction (Submitted to Icassp2025)</h1>
+            <p class="lead fw-bold">
+                <a href="https://scholar.google.com/citations?user=cWhk17oAAAAJ" class="btn border-white bg-white fw-bold">Scholar</a> |
+                <a href="https://github.com/wyw97" class="btn border-white bg-white fw-bold">Github</a> |
+                <a href="https://wyw97.github.io/" class="btn border-white bg-white fw-bold">Homepage</a>
+            </p>
+            <p class="fst-italic mb-0">
+                Yiwen Wang<sup>1*</sup>, Zeyu Yuan<sup>2</sup>, Xihong Wu<sup>1</sup>
+            </p>
+            <p>
+                <sup>1</sup>Peking University
+                <sup>2</sup>Xiaomi Corporation
+                <br/>
+            </p>
+        </div>
+        <div class="style1">
+            <h1>Overview</h1>
+            <p>
+                Target speech extraction (TSE) focuses on extracting the speech of a specific target speaker from a mixture of signals. Existing TSE models typically utilize static embeddings as conditions for extracting the target speaker’s voice. However, the static embeddings often fail to capture the contextual information of the extracted speech signal, which may limit the model’s performance. We propose a novel dynamic embedding causal target speech extraction model to address this limitation. Our approach incorporates an autoregressive mechanism to generate context-dependent embeddings based on the extracted speech, enabling real-time, frame-level extraction. Experimental results demonstrate that the proposed model enhances short-time objective intelligibility (STOI) and signal-to-distortion ratio (SDR), offering a promising solution for target speech extraction in challenging scenarios.
+                <img src="dense_img/ar_pairs_tse_autoregressive.png" style="width: 50%;">
+            </p> 
+        </div>
     </div>
-
-    
 
     <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
-  <div class="style2">
-
-  <a name="audio-demos"><h1>Libri2Mix Audio Demos</h1></a>
-    <!-- Repeat this block for each folder -->
-    <div class="container">
-        <div class="image">
-            <img src="wav_output/s1_237-134500-0000_7021-79740-0002/wav_cmp.png" alt="Image">
-        </div>
-        <div class="audio">
-            <audio controls>
-                <source src="wav_output/s1_237-134500-0000_7021-79740-0002/baseline.wav" type="audio/wav">
-                Your browser does not support the audio element.
-            </audio>
-            <audio controls>
-                <source src="wav_output/s1_237-134500-0000_7021-79740-0002/dense_ar.wav" type="audio/wav">
-                Your browser does not support the audio element.
-            </audio>
-            <audio controls>
-                <source src="wav_output/s1_237-134500-0000_7021-79740-0002/dense_paris.wav" type="audio/wav">
-                Your browser does not support the audio element.
-            </audio>
-            <audio controls>
-                <source src="wav_output/s1_237-134500-0000_7021-79740-0002/label.wav" type="audio/wav">
-                Your browser does not support the audio element.
-            </audio>
-            <audio controls>
-                <source src="wav_output/s1_237-134500-0000_7021-79740-0002/mixture.wav" type="audio/wav">
-                Your browser does not support the audio element.
-            </audio>
+        <div class="style2">
+            <a name="audio-demos"><h1>Libri2Mix Audio Demos</h1></a>
+            <div class="container">
+                <div class="image">
+                    <img src="wav_output/s1_237-134500-0000_7021-79740-0002/wav_cmp.png" alt="Image">
+                </div>
+                <div class="audio">
+                    <div class="audio-item">
+                        <label>Baseline:</label>
+                        <audio controls>
+                            <source src="wav_output/s1_237-134500-0000_7021-79740-0002/baseline.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    <div class="audio-item">
+                        <label>Dense (AR):</label>
+                        <audio controls>
+                            <source src="wav_output/s1_237-134500-0000_7021-79740-0002/dense_ar.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    <div class="audio-item">
+                        <label>Dense (Paris):</label>
+                        <audio controls>
+                            <source src="wav_output/s1_237-134500-0000_7021-79740-0002/dense_paris.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    <div class="audio-item">
+                        <label>Label:</label>
+                        <audio controls>
+                            <source src="wav_output/s1_237-134500-0000_7021-79740-0002/label.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    <div class="audio-item">
+                        <label>Mixture:</label>
+                        <audio controls>
+                            <source src="wav_output/s1_237-134500-0000_7021-79740-0002/mixture.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- End of repeat block -->
-    
-    </div>
-         
-    </body>
+</body>
 </html>
