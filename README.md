@@ -24,4 +24,6 @@ Some changes:
 
 2. For eval.py to use real chunk-wise causal target speech extraction, DDP is used and the parameter (1531) is set fixed as the receptive length of TCN for simply.
 
-3. For system.py, please carefully check SystemPredictedTeacherForcing and SystemPredictedPairs. Some parameters should be checked before running. Sorry for the inconvenience. Maybe update sooner or later!
+3. For system.py, please carefully check SystemPredictedTeacherForcing and SystemPredictedParis. Some parameters should be checked before running. Sorry for the inconvenience. 
+
+4. Open-sourced without carefully check the code style, maybe update sooner or later!
