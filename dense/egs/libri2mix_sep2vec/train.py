@@ -26,8 +26,8 @@ from models_direct.td_speakerbeam_sep2vec import TimeDomainSpeakerBeamPredictHel
 # from models.td_speakerbeam_skim import TimeDomainSpeakerBeamPredictHelp
 from datasets.librimix_predict import LibriMixPredict
 from asteroid.engine.optimizers import make_optimizer
-# from models_direct.system import SystemPredicted, SystemPredictedTeacherForcing, SystemPredictedTeacherForcingAutoRegression, SystemPredictedTeacherForcingTripleTime
-from models_direct.system import SystemPredictedPairs
+# from models_direct.system import SystemPredicted, SystemPredictedTeacherForcing, SystemPredictedTeacherForcingAutoRegression
+from models_direct.system import SystemPredictedParis
 from asteroid.losses import singlesrc_neg_sisdr, singlesrc_neg_snr
 import tensorboard
 
