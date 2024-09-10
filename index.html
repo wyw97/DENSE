@@ -82,7 +82,7 @@
         .style2 img {
             max-width: 100%;
             height: auto;
-            cursor: pointer; /* 鼠标悬停时显示为手形，表示可点击 */
+            cursor: pointer;
         }
 
         .style2 .audio-item {
@@ -102,7 +102,7 @@
 
         /* Modal 样式 */
         .modal {
-            display: none; /* 默认隐藏 */
+            display: none;
             position: fixed;
             z-index: 1000;
             left: 0;
@@ -138,8 +138,7 @@
             <p class="lead fw-bold">
                 <a href="https://scholar.google.com/citations?user=cWhk17oAAAAJ" class="btn border-white bg-white fw-bold">Scholar</a> |
                 <a href="https://github.com/wyw97" class="btn border-white bg-white fw-bold">Github</a> |
-                <a href="https://wyw97.github.io/" class="btn border-white bg-white fw-bold">Homepage</a> |
-                <a href="https://github.com/wyw97/DENSE/tree/main" class="btn border-white bg-white fw-bold">Code</a>
+                <a href="https://wyw97.github.io/" class="btn border-white bg-white fw-bold">Homepage</a>
             </p>
             <p class="fst-italic mb-0">
                 Yiwen Wang<sup>1*</sup>, Zeyu Yuan<sup>2</sup>, Xihong Wu<sup>1</sup>
@@ -223,10 +222,18 @@
             modalImg.src = img.src;
         }
 
-        // Close modal when clicking on 'x'
+        // Close modal when clicking on 'x' or outside the image
+        var modal = document.getElementById("myModal");
         var span = document.getElementsByClassName("close")[0];
+
         span.onclick = function() {
-            document.getElementById("myModal").style.display = "none";
+            modal.style.display = "none";
+        }
+
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
         }
     </script>
 </body>
