@@ -3,6 +3,8 @@
 # All rights reserved
 # By Katerina Zmolikova, August 2021.
 
+# Modified by wyw, April 2024
+
 # This code is based on Asteroid train.py, 
 # which is released under the following MIT license:
 # https://github.com/asteroid-team/asteroid/blob/master/LICENSE
