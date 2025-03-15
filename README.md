@@ -1,7 +1,7 @@
 # DENSE
 Dynamic Embedding Causal Target Speech Extraction
 
-Official Code for Dynamic Embedding Causal Target Speech Extraction (Submitted to ICASSP 2025)
+Official Code for Dynamic Embedding Causal Target Speech Extraction
 
 For the demos, please visit [Demo](https://wyw97.github.io/DENSE/)
 
